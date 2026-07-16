@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![SynapseHR Banner](screenshots/01_login_page.png)
+![SynapseHR Login](screenshots/01_login_page.png)
 
 **A full-stack, modern Employee Management System built with React, TypeScript, Node.js, Express & MongoDB**
 
@@ -30,41 +30,35 @@
 
 ## 📸 Screenshots
 
-### 🔐 Login Page — Dark Mode
-![Login Dark](screenshots/01_login_page.png)
+### 🔐 Login Page — Split Panel with Features Showcase
+![Login Page](screenshots/01_login_page.png)
 
-### 🌤️ Login Page — Light Mode
-![Login Light](screenshots/02_login_light_mode.png)
+### 🧑‍💼 Employee Dashboard — Attendance & Tasks
+![Employee Dashboard](screenshots/02_employee_dashboard.png)
 
-### 📊 Admin Dashboard
-![Dashboard](screenshots/03_admin_dashboard.png)
+### 🏖️ Employee Dashboard — Leaves & Performance Review
+![Leaves & Performance](screenshots/03_employee_leaves_review.png)
 
-### 👥 Employee Directory
-![Employees](screenshots/04_employees_list.png)
+### 📊 HR Manager Dashboard — KPIs & Analytics
+![HR Dashboard](screenshots/04_hr_dashboard.png)
 
-### 👤 Employee Profile
-![Profile](screenshots/05_employee_profile.png)
+### 👥 Employee Directory — Full Workforce List
+![Employees](screenshots/05_employees_list.png)
 
-### ✅ Task Manager
-![Tasks](screenshots/06_task_manager.png)
+### 📹 Meeting Rooms — Virtual Collaboration
+![Meeting Rooms](screenshots/06_meeting_rooms.png)
 
-### 🏖️ Leave Approvals
-![Leaves](screenshots/07_leaves_approval.png)
+### 💰 Admin Dashboard — Salary Chart by Department
+![Salary Analytics](screenshots/07_admin_salary_chart.png)
 
-### 🎫 Helpdesk Tickets
-![Helpdesk](screenshots/08_helpdesk_tickets.png)
+### ✅ Task Manager — Assign, Track & Complete
+![Task Manager](screenshots/08_task_manager.png)
 
-### 🏗️ Organization Chart
-![Org Chart](screenshots/09_org_chart.png)
+### 🏆 Rewards & KPI — Achievements & Announcements
+![Rewards & KPI](screenshots/09_rewards_kpi.png)
 
-### 🕐 Shift Logs & Attendance
-![Shift Logs](screenshots/10_shift_logs.png)
-
-### ➕ Add Employee Form
-![Add Employee](screenshots/11_add_employee_form.png)
-
-### 📈 Dashboard Analytics
-![Analytics](screenshots/12_dashboard_analytics.png)
+### 🎫 Helpdesk Support — Tickets & Responses
+![Helpdesk](screenshots/10_helpdesk.png)
 
 ---
 
@@ -184,7 +178,7 @@ Employee/
 │   │   └── index.css          # Global styles & animations
 │   └── package.json
 │
-├── screenshots/               # App screenshots
+├── screenshots/               # App screenshots (10 pages)
 ├── .gitignore
 └── README.md
 ```
@@ -196,7 +190,7 @@ Employee/
 - **Primary Color**: Brand Green (`#22c55e`)
 - **Dark Background**: Deep Navy (`#0f172a`)
 - **Font**: Outfit + Inter (Google Fonts)
-- **Dark / Light Mode**: Full theme support with smooth transitions
+- **Dark / Light Mode**: Full theme toggle support with smooth transitions
 - **Glassmorphism**: Frosted glass panels throughout
 - **Animations**: Blob morphing, fade-in-up, shimmer, float effects
 
