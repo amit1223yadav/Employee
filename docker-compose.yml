@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: mongo:latest
+    container_name: synapse-db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: synapse-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://db:27017/synapsehr
+      - JWT_SECRET=super_secret_key_for_synapse_hr_2026
+      - JWT_EXPIRE=24h
+      - NODE_ENV=production
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: synapse-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
