@@ -13,7 +13,7 @@ import {
 import { authenticateJWT, requireRole } from '../middleware/auth';
 
 const router = Router();
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 
 // Protect all routes with JWT check
 router.use(authenticateJWT);

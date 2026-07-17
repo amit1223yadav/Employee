@@ -4,6 +4,7 @@ import { AuthenticatedRequest } from '../middleware/auth';
 import { detectCircularReporting } from '../utils/hierarchy';
 import csv from 'csv-parser';
 import fs from 'fs';
+import { Readable } from 'stream';
 
 // Helper to generate a default password
 const DEFAULT_PASSWORD = 'Password123';
@@ -381,13 +382,12 @@ export const importCSV = async (req: AuthenticatedRequest, res: Response) => {
       return res.status(400).json({ message: 'CSV file is required' });
     }
 
-    const filePath = req.file.path;
     const employeesData: any[] = [];
     const errors: string[] = [];
 
-    // Parse CSV file
+    // Parse CSV file from memory buffer
     await new Promise<void>((resolve, reject) => {
-      fs.createReadStream(filePath)
+      Readable.from(req.file!.buffer)
         .pipe(csv())
         .on('data', (row) => {
           employeesData.push(row);
@@ -399,9 +399,6 @@ export const importCSV = async (req: AuthenticatedRequest, res: Response) => {
           reject(err);
         });
     });
-
-    // Cleanup CSV file
-    fs.unlinkSync(filePath);
 
     if (employeesData.length === 0) {
       return res.status(400).json({ message: 'CSV file is empty' });
