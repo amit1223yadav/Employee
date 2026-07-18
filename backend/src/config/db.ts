@@ -1,15 +1,23 @@
 import mongoose from 'mongoose';
 
+let isConnected = false;
+
 export const connectDB = async () => {
+  if (isConnected && mongoose.connection.readyState === 1) {
+    return;
+  }
+
+  const connStr = process.env.MONGODB_URI || 'mongodb://localhost:27017/synapsehr';
+  
   try {
-    const connStr = process.env.MONGODB_URI || 'mongodb://localhost:27017/synapsehr';
-    console.log(`Connecting to MongoDB at: ${connStr.replace(/:([^:@]+)@/, ':****@')}`);
-    
-    const conn = await mongoose.connect(connStr);
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    const db = await mongoose.connect(connStr, {
+      serverSelectionTimeoutMS: 10000,
+    });
+    isConnected = db.connections[0].readyState === 1;
+    console.log(`MongoDB Connected: ${db.connection.host}`);
   } catch (error: any) {
     console.error(`MongoDB connection error: ${error.message}`);
-    // Do not call process.exit(1) in serverless environments — it crashes the function
     throw error;
   }
 };
+

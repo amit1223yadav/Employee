@@ -20,9 +20,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Connect to Database
-connectDB();
-
 // Middlewares
 app.use(cors({
   origin: '*', // Allow all origins for the dev environment
@@ -30,6 +27,20 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Ensure DB connection for every request in serverless environment
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error: any) {
+    console.error('Database connection error in request middleware:', error.message);
+    res.status(500).json({
+      message: 'Database connection failed. Please ensure MongoDB Atlas IP Whitelist (0.0.0.0/0) is configured.',
+      error: error.message
+    });
+  }
+});
 
 // Serve static uploads if needed (for profile images in future)
 app.use('/uploads', express.static('uploads'));

@@ -83,7 +83,7 @@ export const DashboardLayout: React.FC<{ children: React.ReactNode }> = ({ child
             <div className="flex items-center justify-between mb-7 px-1">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center border border-brand-500/20 flex-shrink-0">
-                  <img src="/src/assets/logo.svg" alt="SynapseHR" className="w-7 h-7" />
+                  <img src="/logo.svg" alt="SynapseHR" className="w-7 h-7" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold font-display tracking-tight text-slate-800 dark:text-white">

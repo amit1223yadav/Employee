@@ -113,7 +113,7 @@ export const Login: React.FC = () => {
         {/* Logo */}
         <div className="relative z-10 flex items-center space-x-3">
           <div className="w-10 h-10 rounded-xl bg-brand-500/20 border border-brand-500/30 flex items-center justify-center">
-            <img src="/src/assets/logo.svg" alt="SynapseHR" className="w-7 h-7" />
+            <img src="/logo.svg" alt="SynapseHR" className="w-7 h-7" />
           </div>
           <div>
             <h1 className="text-xl font-extrabold text-white tracking-tight">
@@ -204,7 +204,7 @@ export const Login: React.FC = () => {
         {/* Mobile logo */}
         <div className="lg:hidden flex flex-col items-center mb-8 space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-brand-500/10 border border-brand-500/20 flex items-center justify-center">
-            <img src="/src/assets/logo.svg" alt="SynapseHR" className="w-8 h-8" />
+            <img src="/logo.svg" alt="SynapseHR" className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-extrabold text-slate-800 dark:text-white">
             Synapse<span className="text-brand-500">HR</span>
