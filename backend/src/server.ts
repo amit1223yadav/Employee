@@ -29,8 +29,8 @@ app.options('*', cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Root path test endpoint (placed before DB connection check so health checks always return 200)
-app.get('/', (req: Request, res: Response) => {
+// Root path test endpoints (placed before DB connection check so health checks always return 200)
+app.get(['/', '/api'], (req: Request, res: Response) => {
   res.status(200).json({ status: 'success', message: 'SynapseHR EMS API Server is running' });
 });
 
