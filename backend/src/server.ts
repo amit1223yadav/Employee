@@ -22,13 +22,19 @@ const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors({
-  origin: '*', // Allow all origins for the dev environment
+  origin: true, // Allow request origin dynamically to support credentials
   credentials: true
 }));
+app.options('*', cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Ensure DB connection for every request in serverless environment
+// Root path test endpoint (placed before DB connection check so health checks always return 200)
+app.get('/', (req: Request, res: Response) => {
+  res.status(200).json({ status: 'success', message: 'SynapseHR EMS API Server is running' });
+});
+
+// Ensure DB connection for every API request
 app.use(async (req: Request, res: Response, next: NextFunction) => {
   try {
     await connectDB();
@@ -36,7 +42,7 @@ app.use(async (req: Request, res: Response, next: NextFunction) => {
   } catch (error: any) {
     console.error('Database connection error in request middleware:', error.message);
     res.status(500).json({
-      message: 'Database connection failed. Please ensure MongoDB Atlas IP Whitelist (0.0.0.0/0) is configured.',
+      message: 'Database connection failed. Please ensure MONGODB_URI is configured and MongoDB Atlas IP Whitelist (0.0.0.0/0) is enabled.',
       error: error.message
     });
   }
@@ -57,11 +63,6 @@ app.use('/api/meetings', meetingRoutes);
 app.use('/api/notes', noteRoutes);
 app.use('/api/announcements', announcementRoutes);
 
-// Root path test endpoint
-app.get('/', (req: Request, res: Response) => {
-  res.status(200).json({ status: 'success', message: 'SynapseHR EMS API Server is running' });
-});
-
 // 404 Route handler
 app.use((req: Request, res: Response) => {
   res.status(404).json({ message: 'Requested resource not found' });
@@ -77,8 +78,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// Boot server
-if (process.env.NODE_ENV !== 'test') {
+// Boot server (Skip app.listen when running on Vercel Serverless or during testing)
+if (process.env.NODE_ENV !== 'test' && !process.env.VERCEL) {
   app.listen(PORT, () => {
     console.log(`Server listening in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
   });
